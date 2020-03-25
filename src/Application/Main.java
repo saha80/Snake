@@ -16,6 +16,8 @@ import MainMenu.MainMenu;
 
 
 public class Main extends Application {
+    private MainMenu mainMenu = new MainMenu();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -23,7 +25,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Snake");
-        MainMenu mainMenu = new MainMenu();
         Scene scene = new Scene(mainMenu.getvBox(), 300, 275);
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);

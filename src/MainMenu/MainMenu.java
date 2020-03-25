@@ -2,10 +2,12 @@ package MainMenu;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
@@ -31,6 +33,12 @@ public class MainMenu {
     }
 
     private void initButtons() {
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                
+            }
+        };
         playButton.setMaxWidth(Double.MAX_VALUE);
         scoreboardButton.setMaxWidth(Double.MAX_VALUE);
         optionsButton.setMaxWidth(Double.MAX_VALUE);
