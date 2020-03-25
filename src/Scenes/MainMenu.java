@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +23,7 @@ public class MainMenu {
     private Button exitButton = new Button("Exit");
     private ImageView imageView = new ImageView(new Image(new File("\"C:\\Users\\Alex\\Desktop\\snake icon.jpg\"").toURI().toString()));
     private VBox verticalLayout = new VBox();
-
+    private Scene scene = null;
     public MainMenu() {
         initButtons();
         initVBox();
@@ -33,12 +34,12 @@ public class MainMenu {
     }
 
     private void initButtons() {
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                
-            }
-        };
+//        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent e) {
+//
+//            }
+//        };
         playButton.setMaxWidth(Double.MAX_VALUE);
         scoreboardButton.setMaxWidth(Double.MAX_VALUE);
         optionsButton.setMaxWidth(Double.MAX_VALUE);
