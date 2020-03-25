@@ -1,4 +1,4 @@
-package MainMenu;
+package Scenes;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
