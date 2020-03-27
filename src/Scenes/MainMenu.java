@@ -22,11 +22,12 @@ public class MainMenu {
     private Button exitButton = new Button("Exit");
     private ImageView imageView = new ImageView(new Image(new File("\"C:\\Users\\Alex\\Desktop\\snake icon.jpg\"").toURI().toString()));
     private VBox verticalLayout = new VBox();
-    private Scene scene = null;
+    private Scene scene;
 
     public MainMenu() {
         initButtons();
         initVBox();
+        scene = new Scene(verticalLayout, 300, 275);
     }
 
     public Scene getScene() {
@@ -34,12 +35,6 @@ public class MainMenu {
     }
 
     private void initButtons() {
-//        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent e) {
-//
-//            }
-//        };
         playButton.setMaxWidth(Double.MAX_VALUE);
         scoreboardButton.setMaxWidth(Double.MAX_VALUE);
         optionsButton.setMaxWidth(Double.MAX_VALUE);
@@ -55,31 +50,33 @@ public class MainMenu {
         verticalLayout.setPadding(new Insets(0, indent, 0, indent));
         verticalLayout.getChildren().addAll(imageView, playButton, scoreboardButton, optionsButton, exitButton);
     }
-    public void addActionListener(ActionListener listener){
-        playButton.setOnMouseClicked(new EventHandler<>()
-        {
+
+    public void addActionListener(ActionListener listener) {
+        playButton.setOnMouseClicked(new EventHandler<>() {
             @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                listener.actionPerformed(new ActionEvent(this, 0, "start"));
+            public void handle(MouseEvent mouseEvent) {
+                listener.actionPerformed(new ActionEvent(this, 0, "Play"));
+            }
+        });
+        scoreboardButton.setOnMouseClicked(new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                listener.actionPerformed(new ActionEvent(this, 0, "Score board"));
             }
         });
 
-        optionsButton.setOnMouseClicked(new EventHandler<>()
-        {
+        optionsButton.setOnMouseClicked(new EventHandler<>() {
             @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                listener.actionPerformed(new ActionEvent(this, 1, "settings"));
+            public void handle(MouseEvent mouseEvent) {
+                listener.actionPerformed(new ActionEvent(this, 1, "Options"));
             }
         });
 
-        exitButton.setOnMouseClicked(new EventHandler<>()
-        {
+        exitButton.setOnMouseClicked(new EventHandler<>() {
             @Override
-            public void handle(MouseEvent mouseEvent)
-            {
+            public void handle(MouseEvent mouseEvent) {
                 listener.actionPerformed(new ActionEvent(this, -1, "exit"));
             }
         });
+    }
 }

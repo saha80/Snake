@@ -12,14 +12,15 @@ public class Controller implements ActionListener {
     private MainMenu menu;
     private GameScene gameScene = null;
 
-    public Controller(Stage stage){
+    public Controller(Stage stage) {
         mainStage = stage;
         menu.addActionListener(this);
 
     }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        switch (actionEvent.getID()){
+        switch (actionEvent.getID()) {
             case 0:
                 gameScene = new GameScene();
                 mainStage.setScene(gameScene.getScene());

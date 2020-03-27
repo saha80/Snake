@@ -6,9 +6,10 @@ public class GameScene {
     private Scene scene;
 
     public GameScene() {
-        
+
     }
-    public Scene getScene(){
+
+    public Scene getScene() {
         return scene;
     }
 
