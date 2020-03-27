@@ -26,6 +26,11 @@ public class Controller implements ActionListener {
                 mainStage.setScene(gameScene.getScene());
                 gameScene.startGame();
                 break;
+            case 1:
+
+                break;
+            case 2:
+                break;
         }
     }
 }

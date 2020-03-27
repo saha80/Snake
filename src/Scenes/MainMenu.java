@@ -1,7 +1,6 @@
 package Scenes;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,9 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
@@ -61,21 +62,13 @@ public class MainMenu {
         scoreboardButton.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                listener.actionPerformed(new ActionEvent(this, 0, "Score board"));
+                listener.actionPerformed(new ActionEvent(this, 1, "Score board"));
             }
         });
-
         optionsButton.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                listener.actionPerformed(new ActionEvent(this, 1, "Options"));
-            }
-        });
-
-        exitButton.setOnMouseClicked(new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                listener.actionPerformed(new ActionEvent(this, -1, "exit"));
+                listener.actionPerformed(new ActionEvent(this, 2, "Options"));
             }
         });
     }
