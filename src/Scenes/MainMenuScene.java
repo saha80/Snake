@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class MainMenu {
+public class MainMenuScene {
     private Button playButton = new Button("Play");
     private Button scoreboardButton = new Button("Score board");
     private Button optionsButton = new Button("Options");
@@ -25,7 +25,7 @@ public class MainMenu {
     private VBox verticalLayout = new VBox();
     private Scene scene;
 
-    public MainMenu() {
+    public MainMenuScene() {
         initButtons();
         initVBox();
         scene = new Scene(verticalLayout, 300, 275);
