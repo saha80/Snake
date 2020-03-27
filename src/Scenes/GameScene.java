@@ -1,13 +1,18 @@
 package Scenes;
 
-import javafx.scene.layout.HBox;
+import javafx.scene.Scene;
 
 public class GameScene {
-    private HBox hBox;
+    private Scene scene;
 
-    // options btn;
-    //private gameWindow;
     public GameScene() {
         
+    }
+    public Scene getScene(){
+        return scene;
+    }
+
+    public void startGame() {
+
     }
 }

@@ -1,7 +1,7 @@
 package Scenes;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,9 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.awt.event.ActionListener;
+import java.io.*;
 
 public class MainMenu {
     private Button playButton = new Button("Play");
@@ -24,13 +23,14 @@ public class MainMenu {
     private ImageView imageView = new ImageView(new Image(new File("\"C:\\Users\\Alex\\Desktop\\snake icon.jpg\"").toURI().toString()));
     private VBox verticalLayout = new VBox();
     private Scene scene = null;
+
     public MainMenu() {
         initButtons();
         initVBox();
     }
 
-    public VBox getvBox() {
-        return verticalLayout;
+    public Scene getScene() {
+        return scene;
     }
 
     private void initButtons() {
@@ -55,4 +55,31 @@ public class MainMenu {
         verticalLayout.setPadding(new Insets(0, indent, 0, indent));
         verticalLayout.getChildren().addAll(imageView, playButton, scoreboardButton, optionsButton, exitButton);
     }
+    public void addActionListener(ActionListener listener){
+        playButton.setOnMouseClicked(new EventHandler<>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                listener.actionPerformed(new ActionEvent(this, 0, "start"));
+            }
+        });
+
+        optionsButton.setOnMouseClicked(new EventHandler<>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                listener.actionPerformed(new ActionEvent(this, 1, "settings"));
+            }
+        });
+
+        exitButton.setOnMouseClicked(new EventHandler<>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                listener.actionPerformed(new ActionEvent(this, -1, "exit"));
+            }
+        });
 }

@@ -18,8 +18,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Snake");
-        Scene scene = new Scene(mainMenu.getvBox(), 300, 275);
-        primaryStage.setScene(scene);
+        //Scene scene = new Scene(mainMenu.getScene(), 300, 275);
+        primaryStage.setScene(mainMenu.getScene());
         primaryStage.setResizable(true);
         primaryStage.show();
     }
