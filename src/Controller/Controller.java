@@ -12,8 +12,8 @@ public class Controller implements ActionListener {
     private MainMenuScene mainMenu;
     private GameScene gameScene = null;
 
-    public Controller(Stage stage) {
-        mainStage = stage;
+    public Controller(Stage primaryStage) {
+        mainStage = primaryStage;
         mainMenu = new MainMenuScene();
         mainMenu.addActionListener(this);
         mainStage.setScene(mainMenu.getScene());
@@ -29,7 +29,8 @@ public class Controller implements ActionListener {
                 gameScene.startGame();
                 break;
             case 1:
-
+                mainStage.setScene(mainMenu.getScene());
+                mainStage.show();
                 break;
             case 2:
                 break;
