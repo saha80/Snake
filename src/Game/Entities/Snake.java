@@ -1,13 +1,14 @@
 package Game.Entities;
 
-import Game.Game;
-
-import javax.management.openmbean.ArrayType;
-import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Random;
+
+
+import static Game.Entities.Field.FIELD_CELL_SIZE;
+import static Game.Entities.Field.FIELD_SIZE;
 
 public class Snake {
-    public class BodyPart {
+    public static class BodyPart {
         public int x;
         public int y;
 
@@ -39,34 +40,37 @@ public class Snake {
         }
     }
 
-    public static final int START_LENGTH = 4;
-    private ArrayList<BodyPart> body = new ArrayList<BodyPart>(START_LENGTH);
-    private Directions direction = Directions.left;
-    public boolean isAlive = true;
-    public boolean isAteAllFood = true;
+    //public static final int START_LENGTH = 1;
+    private ArrayList<BodyPart> body = new ArrayList<>();
+    private Directions direction = Directions.values()[new Random().nextInt(3)];
+    private int speed = 1;
+    private boolean isAlive = true;
+    private boolean isAteAllFood = true;
 
-    public Snake(int fieldSize) {
-        int xOffset = 0, yOffset = 0;
-        switch (direction) {
-            case up:
-                yOffset = 1;
-                break;
-            case down:
-                yOffset = -1;
-                break;
-            case left:
-                xOffset = 1;
-                break;
-            case right:
-                xOffset = -1;
-                break;
-        }
 
-        for (int i = 0; i < START_LENGTH; i++) {
-            int BPx = fieldSize / 2 + xOffset * i - 1;
-            int BPy = fieldSize / 2 + yOffset * i - 1;
-            body.add(new BodyPart(BPx, BPy));
-        }
+    public Snake() {
+//        int xOffset = 0, yOffset = 0;
+//        switch (direction) {
+//            case up:
+//                yOffset = 1;
+//                break;
+//            case down:
+//                yOffset = -1;
+//                break;
+//            case left:
+//                xOffset = 1;
+//                break;
+//            case right:
+//                xOffset = -1;
+//                break;
+//        }
+//
+//        for (int i = 0; i < START_LENGTH; i++) {
+//            int BPx = fieldSize / 2 + xOffset * i - 1;
+//            int BPy = fieldSize / 2 + yOffset * i - 1;
+//            body.add(new BodyPart(BPx, BPy));
+//        }
+        body.add(new BodyPart(FIELD_SIZE / 2, FIELD_SIZE / 2));
     }
 
     public synchronized boolean update(int fieldSize, Food food, final Directions newDirection) {
@@ -74,13 +78,15 @@ public class Snake {
 
         move(headCopy, newDirection);
 
-        if (collidedAWall(fieldSize, headCopy) || collidedItself(headCopy))
+        if (collidedAWall(headCopy) || collidedItself(headCopy)) {
             return isAlive = false;
+        }
 
         moveSnake(headCopy);
         expand(headCopy, food);
-        if (body.size() == fieldSize * fieldSize)
+        if (body.size() == fieldSize * fieldSize) {
             return false;
+        }
         return isAlive;
     }
 
@@ -93,54 +99,54 @@ public class Snake {
 
     private void move(BodyPart head, Directions direction) {
         int xOffset = 0, yOffset = 0;
-        if (direction == null)
+        if (direction == null) {
             direction = this.direction;
-        switch (direction) {
-            case up:
-                if (this.direction == Directions.down) //Tried to move up while moving down
-                {
-                    direction = Directions.down;
-                    yOffset = 1;
-                } else
-                    yOffset = -1;
-                break;
-            case down:
-                if (this.direction == Directions.up) //Tried to move down while moving up
-                {
-                    direction = Directions.up;
-                    yOffset = -1;
-                } else
-                    yOffset = 1;
-                break;
-            case left:
-                if (this.direction == Directions.right) //Tried to move left while moving right
-                {
-                    direction = Directions.right;
-                    xOffset = 1;
-                } else
-                    xOffset = -1;
-                break;
-            case right:
-                if (this.direction == Directions.left) //Tried to move right while moving left
-                {
-                    direction = Directions.left;
-                    xOffset = -1;
-                } else
-                    xOffset = 1;
-                break;
+        }
+        if (direction == Directions.up) {
+            if (this.direction == Directions.down) { //Tried to move up while moving down
+                direction = Directions.down;
+                yOffset = 1;
+            } else {
+                yOffset = -1;
+            }
+        }
+        if (direction == Directions.down) {
+            if (this.direction == Directions.up) { //Tried to move down while moving up
+                direction = Directions.up;
+                yOffset = -1;
+            } else {
+                yOffset = 1;
+            }
+        }
+        if (direction == Directions.left) {
+            if (this.direction == Directions.right) {//Tried to move left while moving right
+                direction = Directions.right;
+                xOffset = 1;
+            } else {
+                xOffset = -1;
+            }
+        }
+        if (direction == Directions.right) {
+            if (this.direction == Directions.left) { //Tried to move right while moving left
+                direction = Directions.left;
+                xOffset = -1;
+            } else {
+                xOffset = 1;
+            }
         }
         this.direction = direction;
         head.move(xOffset, yOffset);
     }
 
-    private boolean collidedAWall(int fieldSize, BodyPart head) {
-        return head.x < 0 || head.x >= fieldSize || head.y < 0 || head.y >= fieldSize;
+    private boolean collidedAWall(BodyPart head) {
+        return head.x < 0 || head.x >= FIELD_SIZE || head.y < 0 || head.y >= FIELD_SIZE;
     }
 
     private boolean collidedItself(BodyPart head) {
         for (int i = 4; i < body.size(); i++) {
-            if (head.equals(body.get(i)))
+            if (head.equals(body.get(i))) {
                 return true;
+            }
         }
         return false;
     }
@@ -152,10 +158,28 @@ public class Snake {
     }
 
     public boolean contains(Food food) {
-        for (BodyPart bodyPart : body)
-            if (bodyPart.equals(food))
+        for (BodyPart bodyPart : body) {
+            if (bodyPart.equals(food)) {
                 return true;
+            }
+        }
         return false;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public boolean isAteAllFood() {
+        return isAteAllFood;
+    }
+
+    public void isAteAllFood(boolean b) {
+        isAteAllFood = b;
     }
 
     public synchronized ArrayList<BodyPart> getBody() {

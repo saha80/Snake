@@ -1,18 +1,18 @@
 package Game.Entities;
 
-import Game.Game;
-
 import java.util.Random;
 
-public class Food {
-    public float x;
-    public float y;
+import static Game.Entities.Field.FIELD_SIZE;
 
-    public Food(int fieldSize, Snake snake) {
+public class Food {
+    public int x;
+    public int y;
+
+    public Food(Snake snake) {
         Random random = new Random(System.currentTimeMillis());
         do {
-            this.x = random.nextInt(fieldSize);
-            this.y = random.nextInt(fieldSize);
+            this.x = random.nextInt(FIELD_SIZE);
+            this.y = random.nextInt(FIELD_SIZE);
         } while (snake.contains(this));
     }
 }

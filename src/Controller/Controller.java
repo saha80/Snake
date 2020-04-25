@@ -1,39 +1,62 @@
 package Controller;
 
-import Scenes.GameScene;
-import Scenes.MainMenuScene;
+import Scenes.*;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class Controller implements ActionListener {
+public class Controller {
     private Stage mainStage;
-    private MainMenuScene mainMenu;
-    private GameScene gameScene = null;
+    private MainMenuScene mainMenuScene = new MainMenuScene();
+    private GameScene gameScene = new GameScene();
+    private ScoreBoardScene scoreBoardScene = new ScoreBoardScene();
+    private OptionsScene optionsScene = new OptionsScene();
 
     public Controller(Stage primaryStage) {
         mainStage = primaryStage;
-        mainMenu = new MainMenuScene();
-        mainMenu.addActionListener(this);
-        mainStage.setScene(mainMenu.getScene());
+        mainStage.setScene(mainMenuScene.getScene());
+        mainStage.getIcons().add(mainMenuScene.getSnakeImage());
+        mainStage.setTitle("Snake");
+        setUpEvents();
+        mainStage.setResizable(false);
         mainStage.show();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        switch (actionEvent.getID()) {
-            case 0:
-                gameScene = new GameScene();
-                mainStage.setScene(gameScene.getScene());
-                gameScene.startGame();
-                break;
-            case 1:
-                mainStage.setScene(mainMenu.getScene());
-                mainStage.show();
-                break;
-            case 2:
-                break;
-        }
+    private void setUpEvents() {
+        // main menu scene events
+        mainMenuScene.getPlayButton().setOnAction(actionEvent -> {
+            mainStage.setTitle("Snake: Play");
+            mainStage.setScene(gameScene.getScene());
+            gameScene.startGame(true);
+            mainStage.show();
+        });
+        mainMenuScene.getScoreBoardButton().setOnAction(actionEvent -> {
+            mainStage.setScene(scoreBoardScene.getScene());
+            mainStage.setTitle("Snake: Score board");
+            mainStage.show();
+        });
+        mainMenuScene.getOptionsButton().setOnAction(actionEvent -> {
+            mainStage.setScene(optionsScene.getScene());
+            mainStage.setTitle("Snake: Options");
+            mainStage.show();
+        });
+        mainMenuScene.getExitButton().setOnAction(e -> Platform.exit());
+        // game scene events
+        gameScene.getExitButton().setOnAction(actionEvent -> {
+            mainStage.setScene(mainMenuScene.getScene());
+            mainStage.setTitle("Snake");
+            mainStage.show();
+        });
+        // score board events
+        scoreBoardScene.getExitButton().setOnAction(actionEvent -> {
+            mainStage.setScene(mainMenuScene.getScene());
+            mainStage.setTitle("Snake");
+            mainStage.show();
+        });
+        // options scene events
+        optionsScene.getExitButton().setOnAction(actionEvent -> {
+            mainStage.setScene(mainMenuScene.getScene());
+            mainStage.setTitle("Snake");
+            mainStage.show();
+        });
     }
 }
