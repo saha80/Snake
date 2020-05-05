@@ -73,7 +73,7 @@ public class Snake {
         body.add(new BodyPart(FIELD_SIZE / 2, FIELD_SIZE / 2));
     }
 
-    public synchronized boolean update(int fieldSize, Food food, final Directions newDirection) {
+    public synchronized boolean update(Food food, final Directions newDirection) {
         BodyPart headCopy = new BodyPart(body.get(0));
 
         move(headCopy, newDirection);
@@ -84,7 +84,7 @@ public class Snake {
 
         moveSnake(headCopy);
         expand(headCopy, food);
-        if (body.size() == fieldSize * fieldSize) {
+        if (body.size() == FIELD_SIZE * FIELD_SIZE) {
             return false;
         }
         return isAlive;

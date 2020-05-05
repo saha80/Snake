@@ -9,20 +9,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
-import java.util.ArrayList;
 
 import static Scenes.MainMenuScene.MAIN_MENU_HEIGHT;
 import static Scenes.MainMenuScene.MAIN_MENU_WIDTH;
 
 public class ScoreBoardScene {
-    private Scene scene;
-    private Button exitButton = new Button("X");
-    private VBox rootLayout = new VBox();
+    private final Scene scene;
+    private final Button exitButton = new Button("X");
+    private final VBox rootLayout = new VBox();
 
-    private HBox scoreTable = new HBox();
-    private ListView<String> number = new ListView<>();
-    private ListView<String> name = new ListView<>();
-    private ListView<String> score = new ListView<>();
+    private final HBox scoreTable = new HBox();
+    private final ListView<String> number = new ListView<>();
+    private final ListView<String> name = new ListView<>();
+    private final ListView<String> score = new ListView<>();
 
     private BufferedWriter out;
     private BufferedReader in;

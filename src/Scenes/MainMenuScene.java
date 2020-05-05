@@ -12,14 +12,14 @@ import java.io.*;
 public class MainMenuScene {
     public static final int MAIN_MENU_WIDTH = 400;
     public static final int MAIN_MENU_HEIGHT = 400;
-    private Button playButton = new Button("Play");
-    private Button scoreboardButton = new Button("Score board");
-    private Button optionsButton = new Button("Options");
-    private Button exitButton = new Button("Exit");
+    private final Button playButton = new Button("Play");
+    private final Button scoreboardButton = new Button("Score board");
+    private final Button optionsButton = new Button("Options");
+    private final Button exitButton = new Button("Exit");
     private final Image snakeImage = new Image(
             (new File("C:/Users/Alex/IdeaProjects/Snake/resources/snake icon.png")).toURI().toString());
-    private VBox rootLayout = new VBox();
-    private Scene scene;
+    private final VBox rootLayout = new VBox();
+    private final Scene scene;
 
     public MainMenuScene() {
         initRootLayout();

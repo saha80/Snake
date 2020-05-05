@@ -18,12 +18,12 @@ import static Scenes.MainMenuScene.MAIN_MENU_WIDTH;
 import static Scenes.MainMenuScene.MAIN_MENU_HEIGHT;
 
 public class OptionsScene {
-    private Scene scene;
-    private Button exitButton = new Button("X");
-    private Slider slider = new Slider(0, 2, 0);
-    private ColorPicker colorPickerForSnake = new ColorPicker();
-    private ColorPicker colorPickerForBackground = new ColorPicker();
-    private VBox rootLayout = new VBox();
+    private final Scene scene;
+    private final Button exitButton = new Button("X");
+    private final Slider slider = new Slider(0, 2, 0);
+    private final ColorPicker colorPickerForSnake = new ColorPicker();
+    private final ColorPicker colorPickerForBackground = new ColorPicker();
+    private final VBox rootLayout = new VBox();
     private BufferedWriter out; // "Options.txt";
     private BufferedReader in; // "Options.txt";
 

@@ -5,11 +5,11 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class Controller {
-    private Stage mainStage;
-    private MainMenuScene mainMenuScene = new MainMenuScene();
-    private GameScene gameScene = new GameScene();
-    private ScoreBoardScene scoreBoardScene = new ScoreBoardScene();
-    private OptionsScene optionsScene = new OptionsScene();
+    private final Stage mainStage;
+    private final MainMenuScene mainMenuScene = new MainMenuScene();
+    private final GameScene gameScene = new GameScene();
+    private final ScoreBoardScene scoreBoardScene = new ScoreBoardScene();
+    private final OptionsScene optionsScene = new OptionsScene();
 
     public Controller(Stage primaryStage) {
         mainStage = primaryStage;

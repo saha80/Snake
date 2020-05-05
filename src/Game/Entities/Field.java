@@ -1,7 +1,5 @@
 package Game.Entities;
 
-import javafx.scene.shape.Rectangle;
-
 import static Scenes.MainMenuScene.MAIN_MENU_HEIGHT;
 import static Scenes.MainMenuScene.MAIN_MENU_WIDTH;
 import static java.lang.Integer.max;

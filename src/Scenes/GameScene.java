@@ -1,23 +1,18 @@
 package Scenes;
 
-import Game.Entities.Field;
 import Game.Game;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import static Game.Entities.Field.FIELD_SIZE;
 
 public class GameScene {
-    private Scene scene;
-    private Game game = new Game();
+    private final Scene scene;
+    private Game game;
     private boolean isGameHasStarted = false;
-    private Button exitButton = new Button("X");
+    private final Button exitButton = new Button("X");
 
     public GameScene() {
         VBox rootLayout = new VBox();

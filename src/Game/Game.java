@@ -8,7 +8,14 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+
+import static Game.Entities.Field.FIELD_CELL_SIZE;
 import static Game.Entities.Field.FIELD_SIZE;
 
 public class Game {
@@ -27,13 +34,13 @@ public class Game {
             public void handle(long now) {
                 if (lastTick == 0) {
                     lastTick = now;
-                    //tick(gc);
+                    tick(gc);
                     return;
                 }
 
                 if (now - lastTick > 1000000000 / snake.getSpeed()) {
                     lastTick = now;
-                    //tick(gc);
+                    tick(gc);
                 }
             }
         }.start();
@@ -51,7 +58,25 @@ public class Game {
 //        }
     }
 
-    public Canvas getCanvas(){
+    private void tick(GraphicsContext gc) { //todo
+
+        if (snake.isAteAllFood()) {
+            food = new Food(snake);
+        }
+        
+        snake.update(food, newDirection);
+        // draw field
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0, FIELD_SIZE, FIELD_SIZE);
+        // draw snake
+        for (Snake.BodyPart c : snake.getBody()) {
+//            gc.setFill(Color.LIGHTGREEN);
+//            gc.fillRect(c.x * FIELD_CELL_SIZE, c.y * FIELD_CELL_SIZE, FIELD_CELL_SIZE - 1, FIELD_CELL_SIZE - 1);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(c.x * FIELD_CELL_SIZE, c.y * FIELD_CELL_SIZE, FIELD_CELL_SIZE - 2, FIELD_CELL_SIZE - 2);
+        }
+    }
+    public Canvas getCanvas() {
         return c;
     }
 //    public boolean gameCycle() {
