@@ -10,36 +10,32 @@ import static Game.Entities.Field.FIELD_SIZE;
 
 public class GameScene {
     private final Scene scene;
-    private Game game;
+    private final Game game = new Game();
     private boolean isGameHasStarted = false;
     private final Button exitButton = new Button("X");
+    private final VBox rootLayout = new VBox();
 
     public GameScene() {
-        VBox rootLayout = new VBox();
-        exitButton.setStyle("-fx-color: black");
-        exitButton.setStyle("-fx-focus-color: -fx-control-inner-background ; -fx-faint-focus-color: -fx-control-inner-background ;");
-        //exitButton.setStyle("-fx-background-color: #000000");
-        //exitButton.setStyle("-fx-text-fill: #ffffff");
+        exitButton.setStyle("-fx-color: black;" +
+                            "-fx-focus-color:-fx-control-inner-background;" +
+                            "-fx-faint-focus-color: -fx-control-inner-background;");
         rootLayout.setStyle("-fx-background-color: black");
         rootLayout.getChildren().addAll(exitButton, game.getCanvas());
         scene = new Scene(rootLayout, FIELD_SIZE, FIELD_SIZE);
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
+            game.setNewDirection(Game.getDirectionByKey(keyEvent.getCode()));
+        });
     }
 
-    public String getScore() {// todo: return game score
-//        if (game.gameCycle()) {
-//            return "";
-//        }
+    public String getScore() {
         return "";
     }
 
     public void startGame(boolean b) {
         isGameHasStarted = b;
         if (isGameHasStarted) {
-            game = new Game();
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-                game.setNewDirection(Game.getDirectionByKey(keyEvent.getCode()));
-                System.out.println(keyEvent.getCode());
-            });
+            //rootLayout.getChildren().add(game.getCanvas());
+            //dgame = new Game();
             game.gameLoop();
         }
     }

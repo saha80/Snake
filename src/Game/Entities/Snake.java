@@ -3,101 +3,39 @@ package Game.Entities;
 import java.util.ArrayList;
 import java.util.Random;
 
-
-import static Game.Entities.Field.FIELD_CELL_SIZE;
-import static Game.Entities.Field.FIELD_SIZE;
+import static Game.Entities.Field.*;
 
 public class Snake {
-    public static class BodyPart {
-        public int x;
-        public int y;
-
-        public BodyPart(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public BodyPart(BodyPart other) {
-            this.move(other);
-        }
-
-        public void move(int xOffset, int yOffset) {
-            this.x += xOffset;
-            this.y += yOffset;
-        }
-
-        public void move(BodyPart other) {
-            this.x = other.x;
-            this.y = other.y;
-        }
-
-        public boolean equals(BodyPart other) {
-            return this.x == other.x && this.y == other.y;
-        }
-
-        public boolean equals(Food food) {
-            return this.x == food.x && this.y == food.y;
-        }
-    }
-
-    //public static final int START_LENGTH = 1;
     private ArrayList<BodyPart> body = new ArrayList<>();
     private Directions direction = Directions.values()[new Random().nextInt(3)];
     private int speed = 1;
     private boolean isAlive = true;
-    private boolean isAteAllFood = true;
-
 
     public Snake() {
-//        int xOffset = 0, yOffset = 0;
-//        switch (direction) {
-//            case up:
-//                yOffset = 1;
-//                break;
-//            case down:
-//                yOffset = -1;
-//                break;
-//            case left:
-//                xOffset = 1;
-//                break;
-//            case right:
-//                xOffset = -1;
-//                break;
-//        }
-//
-//        for (int i = 0; i < START_LENGTH; i++) {
-//            int BPx = fieldSize / 2 + xOffset * i - 1;
-//            int BPy = fieldSize / 2 + yOffset * i - 1;
-//            body.add(new BodyPart(BPx, BPy));
-//        }
         body.add(new BodyPart(FIELD_SIZE / 2, FIELD_SIZE / 2));
     }
 
-    public synchronized boolean update(Food food, final Directions newDirection) {
+    public boolean update(Food food, Directions newDirection) {
         BodyPart headCopy = new BodyPart(body.get(0));
-
-        move(headCopy, newDirection);
-
+        moveHead(headCopy, newDirection);
         if (collidedAWall(headCopy) || collidedItself(headCopy)) {
             return isAlive = false;
         }
-
-        moveSnake(headCopy);
-        expand(headCopy, food);
-        if (body.size() == FIELD_SIZE * FIELD_SIZE) {
+        moveBody(headCopy);
+        if (headCopy.equals(food)) {
+            expand(headCopy, food);
+        }
+        if (body.size() * FIELD_CELL_COUNT == FIELD_SIZE * FIELD_SIZE) {
             return false;
         }
         return isAlive;
     }
 
     private void expand(BodyPart headCopy, Food food) {
-        if (headCopy.equals(food)) {
-            isAteAllFood = true;
-            body.add(new BodyPart(body.get(body.size() - 1)));
-        }
+        body.add(new BodyPart(body.get(body.size() - 1)));
     }
 
-    private void move(BodyPart head, Directions direction) {
+    private void moveHead(BodyPart head, Directions direction) {
         int xOffset = 0, yOffset = 0;
         if (direction == null) {
             direction = this.direction;
@@ -135,7 +73,7 @@ public class Snake {
             }
         }
         this.direction = direction;
-        head.move(xOffset, yOffset);
+        head.move(xOffset * FIELD_CELL_SIZE, yOffset * FIELD_CELL_SIZE);
     }
 
     private boolean collidedAWall(BodyPart head) {
@@ -151,10 +89,10 @@ public class Snake {
         return false;
     }
 
-    private void moveSnake(BodyPart newHead) {
+    private void moveBody(BodyPart newHead) {
         for (int i = body.size() - 1; i > 0; i--)
-            body.get(i).move(body.get(i - 1));
-        body.get(0).move(newHead);
+            body.get(i).set(body.get(i - 1));
+        body.get(0).set(newHead);
     }
 
     public boolean contains(Food food) {
@@ -172,14 +110,6 @@ public class Snake {
 
     public boolean isAlive() {
         return isAlive;
-    }
-
-    public boolean isAteAllFood() {
-        return isAteAllFood;
-    }
-
-    public void isAteAllFood(boolean b) {
-        isAteAllFood = b;
     }
 
     public synchronized ArrayList<BodyPart> getBody() {

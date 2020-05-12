@@ -26,8 +26,8 @@ public class Controller {
         mainMenuScene.getPlayButton().setOnAction(actionEvent -> {
             mainStage.setTitle("Snake: Play");
             mainStage.setScene(gameScene.getScene());
-            gameScene.startGame(true);
             mainStage.show();
+            gameScene.startGame(true);
         });
         mainMenuScene.getScoreBoardButton().setOnAction(actionEvent -> {
             mainStage.setScene(scoreBoardScene.getScene());
@@ -42,6 +42,7 @@ public class Controller {
         mainMenuScene.getExitButton().setOnAction(e -> Platform.exit());
         // game scene events
         gameScene.getExitButton().setOnAction(actionEvent -> {
+            //gameScene
             mainStage.setScene(mainMenuScene.getScene());
             mainStage.setTitle("Snake");
             mainStage.show();

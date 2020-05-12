@@ -14,7 +14,7 @@
 
 ---------------  S U M M A R Y ------------
 
-Command Line: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:54640,suspend=y,server=n -javaagent:C:\Users\Alex\AppData\Local\JetBrains\IntelliJIdea2020.1\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-8 Main
+Command Line: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:54640,suspend=y,server=n -javaagent:C:\Users\Alex\AppData\Local\JetBrains\IntelliJIdea2020.1\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-8 SnakeGame
 
 Host: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz, 8 cores, 15G,  Windows 10 , 64 bit Build 18362 (10.0.18362.778)
 Time: Sat Apr 25 05:26:39 2020 Belarus Standard Time elapsed time: 3 seconds (0d 0h 0m 3s)
@@ -86,7 +86,7 @@ Other Threads:
   0x0000021e70fe2000 GCTaskThread "GC Thread#3" [stack: 0x0000004f23d00000,0x0000004f23e00000] [id=10808]
   0x0000021e71007800 GCTaskThread "GC Thread#4" [stack: 0x0000004f23e00000,0x0000004f23f00000] [id=19172]
   0x0000021e71008800 GCTaskThread "GC Thread#5" [stack: 0x0000004f23f00000,0x0000004f24000000] [id=5028]
-  0x0000021e50503800 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000004f22000000,0x0000004f22100000] [id=9916]
+  0x0000021e50503800 ConcurrentGCThread "G1 SnakeGame Marker" [stack: 0x0000004f22000000,0x0000004f22100000] [id=9916]
   0x0000021e50505000 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000004f22100000,0x0000004f22200000] [id=13816]
   0x0000021e6f9ee000 ConcurrentGCThread "G1 Refine#0" [stack: 0x0000004f22200000,0x0000004f22300000] [id=772]
   0x0000021e6f9f0000 ConcurrentGCThread "G1 Young RemSet Sampling" [stack: 0x0000004f22300000,0x0000004f22400000] [id=2008]
@@ -645,7 +645,7 @@ symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Pr
 
 VM Arguments:
 jvm_args: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:54640,suspend=y,server=n -javaagent:C:\Users\Alex\AppData\Local\JetBrains\IntelliJIdea2020.1\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-8 
-java_command: Main
+java_command: SnakeGame
 java_class_path (initial): C:\Users\Alex\IdeaProjects\Snake\out\production\Snake;C:\Program Files\JetBrains\IntelliJ IDEA 2019.3.1\lib\idea_rt.jar
 Launcher Type: SUN_STANDARD
 

@@ -1,30 +1,28 @@
 package Game;
 
-import Game.Entities.Directions;
-import Game.Entities.Field;
-import Game.Entities.Food;
-import Game.Entities.Snake;
+import Game.Entities.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 
 import static Game.Entities.Field.FIELD_CELL_SIZE;
 import static Game.Entities.Field.FIELD_SIZE;
 
 public class Game {
-    private Snake snake = new Snake();
+    private final Snake snake = new Snake();
     private Food food;
+    private boolean isAteAllFood = true;
+    private final Field field = new Field();
     private Directions newDirection = null;
-    private boolean isGameRunning = true;
+    private final boolean isGameRunning = true;
     private Canvas c = new Canvas(FIELD_SIZE, FIELD_SIZE);
     private GraphicsContext gc = c.getGraphicsContext2D();
+
+    public Game() {
+        c.setStyle("-fx-color: white");
+    }
 
     public void gameLoop() {
         new AnimationTimer() {
@@ -37,64 +35,36 @@ public class Game {
                     tick(gc);
                     return;
                 }
-
                 if (now - lastTick > 1000000000 / snake.getSpeed()) {
                     lastTick = now;
                     tick(gc);
                 }
             }
         }.start();
-
-//        while (isGameRunning) {
-//            if (!snake.isAlive()) {
-//                isGameRunning = false;
-//            }
-//            if (snake.isAteAllFood()) {
-//                food = new Food(snake);
-//                snake.isAteAllFood(false);
-//            }
-//            isGameRunning = snake.update(FIELD_SIZE, food, newDirection);
-//            setNewDirection(null);
-//        }
     }
 
-    private void tick(GraphicsContext gc) { //todo
-
-        if (snake.isAteAllFood()) {
+    private void tick(GraphicsContext gc) {
+        if (isAteAllFood) {
             food = new Food(snake);
         }
-        
         snake.update(food, newDirection);
-        // draw field
+        isAteAllFood = snake.contains(food);
+        //System.out.println(food.x + " " + food.y);
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, FIELD_SIZE, FIELD_SIZE);
-        // draw snake
-        for (Snake.BodyPart c : snake.getBody()) {
-//            gc.setFill(Color.LIGHTGREEN);
-//            gc.fillRect(c.x * FIELD_CELL_SIZE, c.y * FIELD_CELL_SIZE, FIELD_CELL_SIZE - 1, FIELD_CELL_SIZE - 1);
+        for (BodyPart c : snake.getBody()) {
+            //System.out.println(c.x + " " + c.y + ", ");
             gc.setFill(Color.GREEN);
             gc.fillRect(c.x * FIELD_CELL_SIZE, c.y * FIELD_CELL_SIZE, FIELD_CELL_SIZE - 2, FIELD_CELL_SIZE - 2);
         }
+        //System.out.println();
     }
+
     public Canvas getCanvas() {
         return c;
     }
-//    public boolean gameCycle() {
-//        if (snake.isAteAllFood()) {
-//            food = new Food(snake);
-//            snake.isAteAllFood(false);
-//        }
-//        isGameRunning = snake.update(FIELD_SIZE, food, newDirection);
-//        setNewDirection(null);
-//        if (!isGameRunning)
-//            if (snake.isAlive())
-//                System.out.println("WON!");
-//            else
-//                System.out.println("LOST(");
-//        return isGameRunning;
-//    }
 
-    public synchronized void setNewDirection(Directions direction) {
+    public void setNewDirection(Directions direction) {
         newDirection = direction;
     }
 
